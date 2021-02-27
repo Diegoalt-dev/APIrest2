@@ -1,9 +1,9 @@
 package com.empresa.prueba.dao;
 
 
-import com.empresa.prueba.models.Persona;
+import com.empresa.prueba.models.Persona2;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PersonaDao extends JpaRepository<Persona,Integer> {
+public interface PersonaDao extends JpaRepository<Persona2,Integer> {
 
 }

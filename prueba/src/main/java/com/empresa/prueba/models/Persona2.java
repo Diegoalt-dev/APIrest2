@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Persona {
+public class Persona2 {
     @Id
     private Integer id;
     @Column
