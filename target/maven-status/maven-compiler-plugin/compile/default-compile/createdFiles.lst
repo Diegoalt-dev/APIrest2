@@ -1,0 +1,4 @@
+com\empresa\prueba\models\Persona2.class
+com\empresa\prueba\dao\PersonaDao.class
+com\empresa\prueba\rest\RestPersona.class
+com\empresa\prueba\PruebaApplication.class
