@@ -13,6 +13,14 @@ public class Persona2 {
     @Column
     private String apellidos;
 
+    public Persona2() {
+    }
+
+    public Persona2(Integer id, String nombre, String apellidos) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+    }
 
     public Integer getId() {
         return id;

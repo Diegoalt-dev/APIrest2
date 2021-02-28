@@ -1,4 +1,14 @@
+com\empresa\prueba\recep_models\Recborrado.class
+com\empresa\prueba\rest\RestAuth.class
+com\empresa\prueba\dao\TokenDao.class
 com\empresa\prueba\models\Persona2.class
 com\empresa\prueba\dao\PersonaDao.class
+com\empresa\prueba\dao\UsuarioDao.class
 com\empresa\prueba\rest\RestPersona.class
+com\empresa\prueba\recep_models\RecPersona.class
+com\empresa\prueba\services\TokenService.class
+com\empresa\prueba\SchedulingConfiguration.class
+com\empresa\prueba\models\Usuariotoken.class
+com\empresa\prueba\recep_models\RecToken.class
+com\empresa\prueba\models\Usuarios.class
 com\empresa\prueba\PruebaApplication.class
