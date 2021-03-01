@@ -1,6 +1,6 @@
 package com.empresa.prueba;
 
-import com.empresa.prueba.recep_models.RecPersona;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
