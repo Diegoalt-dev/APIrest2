@@ -1,38 +1,58 @@
+
 package com.empresa.prueba.rest;
 
-import com.empresa.prueba.dao.TokenDao;
-import com.empresa.prueba.dao.UsuarioDao;
-import com.empresa.prueba.models.Usuarios;
+import com.empresa.prueba.models.JwtRequest;
+
+import com.empresa.prueba.recep_models.RecToken;
+import com.empresa.prueba.services.UserService;
+import com.empresa.prueba.utility.JWTUtility;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("au")
 public class RestAuth {
+
     @Autowired
-    private UsuarioDao usuarioDao;
+    private JWTUtility jwtUtility;
+
     @Autowired
-    private TokenDao tokenDao;
+    private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private UserService userService;
 
-    @PostMapping("/autenticar")
-    public String autenticar(@RequestBody Usuarios usuarios) {
-        System.out.println("****************************Encontró usuario?***********************************");
-        Usuarios valorUser = usuarioDao.findByUser(usuarios.getUser());
-
-        if (valorUser != null) {
-            if (usuarios.getPassword().equals(valorUser.getPassword())) {
-
-                return "Token: " + tokenDao.findByUsuarioUser(usuarios.getUser()).getToken();
-            } else {
-                return "Contraseña incorrecta";
-            }
-        } else {
-            return "Usuario no existente";
-        }
+    @GetMapping("/")
+    public String home() {
+        return "Welcome to Daily Code Buffer!!";
     }
 
+    @PostMapping("/autenticar")
+    public RecToken authenticate(@RequestBody JwtRequest jwtRequest)  throws Exception{
+
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            jwtRequest.getUsername(),
+                            jwtRequest.getPassword()
+                    )
+            );
+        } catch (BadCredentialsException e) {
+            throw new Exception("CREDENCIALES INVALIDAS", e);
+        }
+
+        final UserDetails userDetails
+                = userService.loadUserByUsername(jwtRequest.getUsername());
+
+        final String token =
+                jwtUtility.generateToken(userDetails);
+
+        return  new RecToken(token);
+    }
 }

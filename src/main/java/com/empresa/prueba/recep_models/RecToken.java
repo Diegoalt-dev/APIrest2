@@ -13,4 +13,11 @@ public class RecToken {
     public String getToken() {
         return token;
     }
+
+    public RecToken(String token) {
+        this.token = token;
+    }
+
+    public RecToken() {
+    }
 }
