@@ -24,9 +24,9 @@ public class RestPersona {
 
     //Métodos HTTP - Solicitud al servidor
     @PostMapping("/crear")
-    public String guardar(@RequestBody RecPersona persona2){
-        if(tokenService.validaToken(persona2.getToken())) {
-            Persona2 persona = new Persona2(persona2.getId(),persona2.getNombre(), persona2.getApellidos());
+    public String guardar(@RequestHeader("Authorization") String token, @RequestBody Persona2 persona){
+        if(tokenService.validaToken(token)) {
+
             personaDao.save(persona);
             return "Persona agregada";
         }
@@ -61,14 +61,14 @@ public class RestPersona {
 
     }
     @DeleteMapping("/borrar2/{id}")
-    public void borrar2(@PathVariable("id") Integer id){
+    public void borrar2(@RequestHeader("Authorization") String token, @PathVariable("id") Integer id){
         personaDao.deleteById(id);
     }
 
     @PutMapping("/actualizar")
-    public String actualizar(@RequestBody RecPersona persona2){
-        if(tokenService.validaToken(persona2.getToken())) {
-            Persona2 persona = new Persona2(persona2.getId(),persona2.getNombre(), persona2.getApellidos());
+    public String actualizar(@RequestHeader("Authorization") String token, @RequestBody Persona2 persona){
+        if(tokenService.validaToken(token)) {
+
             personaDao.save(persona);
             return "Persona agregada";
         }
