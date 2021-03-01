@@ -26,8 +26,8 @@ public class RestPersona {
             personaDao.save(persona);
     }
     @GetMapping("/listar")
-    public List<Persona2> listar(){
-            return personaDao.findAll();
+    public List<Persona2> listar(@RequestHeader("Authorization") String token){
+        if(tokenService.validaToken(token)) {
 
     }
 
