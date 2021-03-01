@@ -2,12 +2,13 @@ package com.empresa.prueba.rest;
 
 import com.empresa.prueba.dao.TokenDao;
 import com.empresa.prueba.dao.UsuarioDao;
+import com.empresa.prueba.models.Persona2;
 import com.empresa.prueba.models.Usuarios;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("au")
@@ -33,6 +34,12 @@ public class RestAuth {
         } else {
             return "Usuario no existente";
         }
+    }
+    @GetMapping("/listarus")
+    public List<Usuarios> listar(){
+
+            return usuarioDao.findAll();
+
     }
 
 }
