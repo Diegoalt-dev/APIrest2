@@ -38,8 +38,8 @@ public class RestPersona {
 
     }
     @GetMapping("/listar")
-    public List<Persona2> listar(@RequestBody RecToken token){
-        if(tokenService.validaToken(token.getToken())) {
+    public List<Persona2> listar(@RequestHeader("Authorization") String token){
+        if(tokenService.validaToken(token)) {
             return personaDao.findAll();
         }
         else
