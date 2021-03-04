@@ -2,6 +2,7 @@ package com.empresa.prueba.models;
 
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.List;
 
 @Entity
 public class Persona2 {
@@ -21,8 +22,9 @@ public class Persona2 {
     @Temporal(TemporalType.DATE)
     private Calendar fecha_expedicion;
 
-    @OneToOne(mappedBy = "persona2")
-    private Tarjeta tarjeta;
+
+    @OneToMany(mappedBy = "persona2")
+    private List<Tarjeta> tarjeta;
 
     public Persona2() {
     }

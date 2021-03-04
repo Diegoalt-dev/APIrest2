@@ -1,42 +1,35 @@
 package com.empresa.prueba.models;
 
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.Calendar;
 
-@Entity
-public class Tarjeta {
-    @Id
+
+public class RecepTarjeta {
     private int id;
-    @Column
     private String banco;
-    @Column
     private int numero;
-    @Column
-    @Temporal(TemporalType.DATE)
     private Calendar fecha_vencimiento;
-    @Column
     private int cvv;
+    private int tarjeta_persona;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="tarjeta_persona", referencedColumnName = "id")
-    private Persona2 persona2;
-
-    public Tarjeta() {
+    public RecepTarjeta() {
     }
 
-    public Tarjeta(int id, String banco, int numero, Calendar fecha_vencimiento, int cvv, Persona2 persona2) {
+    public RecepTarjeta(int id, String banco, int numero, Calendar fecha_vencimiento, int cvv, int tarjeta_persona) {
         this.id = id;
         this.banco = banco;
         this.numero = numero;
         this.fecha_vencimiento = fecha_vencimiento;
         this.cvv = cvv;
-        this.persona2 = persona2;
+        this.tarjeta_persona = tarjeta_persona;
     }
 
     public int getId() {
         return id;
     }
+
 
 
     public String getBanco() {
@@ -71,11 +64,11 @@ public class Tarjeta {
         this.cvv = cvv;
     }
 
-    public Persona2 getPersona2() {
-        return persona2;
+    public int getTarjeta_persona() {
+        return tarjeta_persona;
     }
 
-    public void setPersona2(Persona2 persona2) {
-        this.persona2 = persona2;
+    public void setTarjeta_persona(int tarjeta_persona) {
+        this.tarjeta_persona = tarjeta_persona;
     }
 }
