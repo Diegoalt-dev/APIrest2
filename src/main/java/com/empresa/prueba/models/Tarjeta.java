@@ -14,7 +14,7 @@ public class Tarjeta {
     private int numero;
     @Column
     @Temporal(TemporalType.DATE)
-    private Calendar fecha_vencimiento;
+    private java.util.Date fecha_vencimiento;
     @Column
     private int cvv;
 
@@ -25,7 +25,7 @@ public class Tarjeta {
     public Tarjeta() {
     }
 
-    public Tarjeta(int id, String banco, int numero, Calendar fecha_vencimiento, int cvv, Persona2 persona2) {
+    public Tarjeta(int id, String banco, int numero, java.util.Date fecha_vencimiento, int cvv, Persona2 persona2) {
         this.id = id;
         this.banco = banco;
         this.numero = numero;
@@ -55,11 +55,11 @@ public class Tarjeta {
         this.numero = numero;
     }
 
-    public Calendar getFecha_vencimiento() {
+    public java.util.Date getFecha_vencimiento() {
         return fecha_vencimiento;
     }
 
-    public void setFecha_vencimiento(Calendar fecha_vencimiento) {
+    public void setFecha_vencimiento(java.util.Date fecha_vencimiento) {
         this.fecha_vencimiento = fecha_vencimiento;
     }
 

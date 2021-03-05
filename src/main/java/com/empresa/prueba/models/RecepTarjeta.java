@@ -2,28 +2,27 @@ package com.empresa.prueba.models;
 
 import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
 import java.util.Calendar;
 
-
+@Component
 public class RecepTarjeta {
     private int id;
     private String banco;
     private int numero;
-    private Calendar fecha_vencimiento;
+    private java.util.Date fecha_vencimiento;
     private int cvv;
-    private int tarjeta_persona;
+    private int tarjetaPersona;
 
     public RecepTarjeta() {
     }
 
-    public RecepTarjeta(int id, String banco, int numero, Calendar fecha_vencimiento, int cvv, int tarjeta_persona) {
+    public RecepTarjeta(int id, String banco, int numero, java.util.Date fecha_vencimiento, int cvv, int tarjetaPersona) {
         this.id = id;
         this.banco = banco;
         this.numero = numero;
         this.fecha_vencimiento = fecha_vencimiento;
         this.cvv = cvv;
-        this.tarjeta_persona = tarjeta_persona;
+        this.tarjetaPersona = tarjetaPersona;
     }
 
     public int getId() {
@@ -48,11 +47,11 @@ public class RecepTarjeta {
         this.numero = numero;
     }
 
-    public Calendar getFecha_vencimiento() {
+    public java.util.Date getFecha_vencimiento() {
         return fecha_vencimiento;
     }
 
-    public void setFecha_vencimiento(Calendar fecha_vencimiento) {
+    public void setFecha_vencimiento(java.util.Date fecha_vencimiento) {
         this.fecha_vencimiento = fecha_vencimiento;
     }
 
@@ -64,11 +63,11 @@ public class RecepTarjeta {
         this.cvv = cvv;
     }
 
-    public int getTarjeta_persona() {
-        return tarjeta_persona;
+    public int getTarjetaPersona() {
+        return tarjetaPersona;
     }
 
-    public void setTarjeta_persona(int tarjeta_persona) {
-        this.tarjeta_persona = tarjeta_persona;
+    public void setTarjetaPersona(int tarjetaPersona) {
+        this.tarjetaPersona = tarjetaPersona;
     }
 }

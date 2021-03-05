@@ -3,7 +3,6 @@ package com.empresa.prueba.rest;
 
 import com.empresa.prueba.dao.PersonaDao;
 import com.empresa.prueba.dao.TarjetaDao;
-import com.empresa.prueba.models.Persona2;
 
 import com.empresa.prueba.models.RecepTarjeta;
 import com.empresa.prueba.models.Tarjeta;
@@ -11,6 +10,8 @@ import com.empresa.prueba.services.PersonaService;
 import com.empresa.prueba.services.TarjetaService;
 import com.empresa.prueba.services.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -29,34 +30,39 @@ public class RestTarjeta {
     private TarjetaDao tarjetaDao;
     @Autowired
     private TarjetaService tarjetaService;
+    @Autowired
+    private RecepTarjeta recepTarjeta;
+
 
 
 
     //Métodos HTTP - Solicitud al servidor
     @PostMapping("/crear")
-    public String guardar(@RequestHeader("Authorization") String token, @RequestBody RecepTarjeta tarjeta){
+    public String guardar(@RequestHeader("Authorization") String token, @RequestBody RecepTarjeta tarjeta) {
         if(tokenService.validaToken(token)) {
 
-            Tarjeta tarjeta2 = new Tarjeta(tarjeta.getId(),tarjeta.getBanco(),tarjeta.getNumero(),tarjeta.getFecha_vencimiento(), tarjeta.getCvv(), personaDao.findById(tarjeta.getTarjeta_persona()));
+            Tarjeta tarjeta2 = new Tarjeta(tarjeta.getId(),tarjeta.getBanco(),tarjeta.getNumero(),tarjeta.getFecha_vencimiento(), tarjeta.getCvv(), personaDao.findById(tarjeta.getTarjetaPersona()));
+
+
 
             if(tarjetaService.validaTarjeta(tarjeta2)){
-                return "Tarjeta ya existente";
+                throw new RuntimeException("La tarjeta ya existe");
             }
             else
             {
-                if (personaDao.findById(tarjeta.getTarjeta_persona()) != null) {
+                if (personaDao.findById(tarjeta.getTarjetaPersona()) != null) {
                     tarjetaDao.save(tarjeta2);
                     return "Tarjeta agregada";
                 }
                 else
                 {
-                    return "Persona no existe";
+                    throw new RuntimeException("La persona no existe");
                 }
             }
         }
         else
         {
-            return "Error en Token";
+            throw new RuntimeException("Error en Token");
         }
     }
 
@@ -85,10 +91,11 @@ public class RestTarjeta {
     public String actualizar(@RequestHeader("Authorization") String token, @RequestBody RecepTarjeta tarjeta) {
         if (tokenService.validaToken(token)) {
 
-            Tarjeta tarjeta2 = new Tarjeta(tarjeta.getId(), tarjeta.getBanco(), tarjeta.getNumero(), tarjeta.getFecha_vencimiento(), tarjeta.getCvv(), personaDao.findById(tarjeta.getTarjeta_persona()));
+
+            Tarjeta tarjeta2 = new Tarjeta(tarjeta.getId(), tarjeta.getBanco(), tarjeta.getNumero(), tarjeta.getFecha_vencimiento(), tarjeta.getCvv(), personaDao.findById(tarjeta.getTarjetaPersona()));
 
             if (tarjetaService.validaTarjeta(tarjeta2)) {
-                if (personaDao.findById(tarjeta.getTarjeta_persona()) != null) {
+                if (personaDao.findById(tarjeta.getTarjetaPersona()) != null) {
                     tarjetaDao.save(tarjeta2);
                     return "Tarjeta Actualizada";
                 } else {

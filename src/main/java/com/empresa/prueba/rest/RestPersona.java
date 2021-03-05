@@ -5,13 +5,11 @@ import com.empresa.prueba.dao.PersonaDao;
 import com.empresa.prueba.models.Persona2;
 
 import com.empresa.prueba.services.PersonaService;
-import com.empresa.prueba.services.ServiceException;
 import com.empresa.prueba.services.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.sql.rowset.serial.SerialException;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,8 +28,7 @@ public class RestPersona {
     @PostMapping("/crear")
     public String guardar(@RequestHeader("Authorization") String token, @RequestBody Persona2 persona){
         if(tokenService.validaToken(token)) {
-            System.out.println("***************id de persona creada: ********************** " + Integer.toString(persona.getId()));
-            System.out.println("***************Encuentra persona?: ********************** " + personaDao.findById(persona.getId()));
+
             if (personaDao.findById(persona.getId()).isEmpty()){
                 personaDao.save(persona);
                 return "Persona agregada";
@@ -68,17 +65,16 @@ public class RestPersona {
     }
 
     @PutMapping("/actualizar")
-    public String actualizar(@RequestHeader("Authorization") String token, @RequestBody Persona2 persona) throws ServiceException{
+    public String actualizar(@RequestHeader("Authorization") String token, @RequestBody Persona2 persona) {
         if(tokenService.validaToken(token)) {
 
-            System.out.println("**********Persona encontrada*************** " + personaDao.findById(persona.getId()));
             if(!personaDao.findById(persona.getId()).isEmpty()) {
 
                 personaDao.save(persona);
                 return "Persona actualizada";
             }
             else{
-                throw new ServiceException("La persona no existe", HttpStatus.BAD_REQUEST.value());
+                return "La persona no existe";
             }
 
         }
